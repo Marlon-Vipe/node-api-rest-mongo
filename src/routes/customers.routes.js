@@ -78,4 +78,8 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.get('/:id', getCustomer, async(req, res) => {
+    res.json(res.customer);
+})
+
 module.exports = router
