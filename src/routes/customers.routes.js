@@ -82,4 +82,23 @@ router.get('/:id', getCustomer, async(req, res) => {
     res.json(res.customer);
 })
 
+router.put('/:id', getCustomer, async(req, res) => {
+    try {
+        const customer = res.customer
+        customer.name = req.body.name || customer.name
+        customer.lastname = req.body.lastname || customer.lastname
+        customer.age = req.body.age || customer.age
+        customer.gender = req.body.gender || customer.gender
+        customer.bornDate = req.body.bornDate || customer.bornDate
+        customer.email = req.body.email || customer.email
+
+        const updateCustomer = await customer.save()
+        res.json(updateCustomer)
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        })
+    }
+})
+
 module.exports = router
