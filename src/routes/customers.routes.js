@@ -39,9 +39,9 @@ router.get('/', async (req, res) => {
         const customers = await Customer.find()
         console.log('GET ALL', customers)
         if(customers.length === 0){
-            res.status(204).json([])
+            return res.status(204).json([])
         }
-        res(customers)
+        res.json(customers)
     }catch(error){
         res.status(500).json({ message: error.message})
     }
@@ -51,7 +51,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const { name, lastname, age, gender, bornDate, email } = req?.body
     if(!name || !lastname || !age || !gender || !bornDate || !email){
-        return res.satus(400).json(
+        return res.status(400).json(
         {
             message: 'Se deben llenar todos los campos obligatoriamente'
         }
@@ -77,3 +77,5 @@ router.post('/', async (req, res) => {
         })
     }
 })
+
+module.exports = router
