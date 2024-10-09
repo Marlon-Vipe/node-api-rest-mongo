@@ -101,4 +101,32 @@ router.put('/:id', getCustomer, async(req, res) => {
     }
 })
 
+router.patch('/:id', getCustomer, async(req, res) => {
+    
+    if(!req.body.name && !req.body.lastname && !req.body.age && !req.body.gender && !req.body.bornDate && !req.body.email)
+        {
+            res.status(400).json({
+                message: 'Al menos uno de estos campos debe ser enviado: Nombre, Apellido, Edad, Genero, Fecha de Nacimiento, Correo Electrónico'
+            })
+        }
+
+    try {
+        const customer = res.customer
+        customer.name = req.body.name || customer.name
+        customer.lastname = req.body.lastname || customer.lastname
+        customer.age = req.body.age || customer.age
+        customer.gender = req.body.gender || customer.gender
+        customer.bornDate = req.body.bornDate || customer.bornDate
+        customer.email = req.body.email || customer.email
+
+        const updateCustomer = await customer.save()
+        res.json(updateCustomer)
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        })
+    }
+})
+
+
 module.exports = router
