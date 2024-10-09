@@ -128,5 +128,22 @@ router.patch('/:id', getCustomer, async(req, res) => {
     }
 })
 
+router.delete('/:id', getCustomer, async(req, res) => {
+    try {
+        const customer = res.customer
+        await customer.deleteOne({
+            _id: customer._id
+        });
+        res.json({
+            message: `El cliente ${customer.name} fue eliminado correctamente`
+        })
+    } catch (error) {
+        res.json({
+            message: error.message
+        })
+    }
+})
+
+
 
 module.exports = router
