@@ -10,7 +10,7 @@ const getCustomer = async(req,res,next) => {
     if(!id.match(/^[0-9a-fA-F]{24}$/))
         {
             return res.status(404).json({
-            message: 'el ID del libro no es valido'
+            message: 'El ID del libro no es valido'
         }
     )}
 
